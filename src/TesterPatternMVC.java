@@ -1,11 +1,18 @@
 import Model.Record;
+import View.GUI;
 
 public class TesterPatternMVC{
 
     public static Anagrafico arc;
+    public static GUI gui;
+
+    public static void inizializzaVariabili(){
+        arc = new Anagrafico();
+        gui = new GUI();
+    }
 
     public static void main(String[] args){
-        arc = new Anagrafico();
+        inizializzaVariabili();
 
         arc.apriFile();
         arc.aggiungi("AZ999", "Gialli", "Federica", "San dona del Piave", "Piazza Vittorio II 6");
@@ -34,7 +41,7 @@ public class TesterPatternMVC{
     public static void stampaMatricola(int posizione){
         String s = arc.recPosizione(posizione);
         System.out.println("\nMatricola numero " + (posizione / Record.L + 1) + ":");
-        
+
         System.out.print(s.substring(0,20));
         System.out.print(s.substring(20,40));
         System.out.print(s.substring(40,60));
