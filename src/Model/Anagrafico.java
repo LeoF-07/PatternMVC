@@ -1,6 +1,7 @@
-import Model.Record;
+package Model;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Anagrafico{
 
@@ -58,7 +59,7 @@ public class Anagrafico{
     
     
      public int cercaMatricola(String mat){      //  data la matricola, restituisce la posizione nel file
-        try{    byte[] b = new byte[20];         //  se non � presente restituisce -1
+        try{    byte[] b = new byte[20];         //  se non è presente restituisce -1
                 int pos = 0;
 		        dati.seek(pos);
                 int ok = dati.read(b);
@@ -89,7 +90,7 @@ public class Anagrafico{
     }
     
      public void reInizializzaFile(){
-        String vet[][]= {
+        String[][] vet= {
                          {"AZ120",  "Rozzi", "Giancarlo", "Castelfranco", "Lungo Brenta 3"},
                          {"AZ122",  "Rotti", "Gianluca",  "Castelbardo", "Lungo Piave 5"},
                          {"AZ124",  "Rizzi", "Gianluigi", "Castellibero", "Lungo Po 7"},
@@ -112,7 +113,36 @@ public class Anagrafico{
             }
         } catch(IOException e){}
     }
-    
+
+    public String[][] getMatricole() {
+        String[][] matrice;
+        ArrayList<String> matricole = new ArrayList<>();
+
+        try{
+            byte [] b= new byte[Record.L];
+            dati.seek(0);
+
+            int ok = dati.read(b);      // se fine file ok diviene negativo
+            while (ok > 0){
+                String s = new String(b);
+                matricole.add(s);
+                ok = dati.read(b);
+            }
+        }
+        catch(IOException e){}
+
+        int nMatricole = matricole.size();
+        matrice = new String[nMatricole][6];
+
+        for(int i = 0; i < nMatricole; i++){
+            matrice[i][0] = Integer.toString(i);
+            for(int j = 0; j < 5; j++){
+                matrice[i][j + 1] = matricole.get(i).substring(j * (Record.L / 5), (j + 1) * (Record.L / 5));
+            }
+        }
+
+        return matrice;
+    }
 
     public void cancella(){}
     //  non implementato

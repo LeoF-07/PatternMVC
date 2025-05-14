@@ -1,4 +1,5 @@
-import Model.Record;
+package Model;
+
 import View.GUI;
 
 public class TesterPatternMVC{
@@ -8,13 +9,13 @@ public class TesterPatternMVC{
 
     public static void inizializzaVariabili(){
         arc = new Anagrafico();
+        arc.apriFile();
         gui = new GUI();
     }
 
     public static void main(String[] args){
         inizializzaVariabili();
 
-        arc.apriFile();
         arc.aggiungi("AZ999", "Gialli", "Federica", "San dona del Piave", "Piazza Vittorio II 6");
         arc.aggiungi("AZ123", "Rossi", "Gianluca", "Castelfranco", "Lungo Sile 6");
 
@@ -48,6 +49,10 @@ public class TesterPatternMVC{
         System.out.print(s.substring(60,80));
         System.out.print(s.substring(80,100));
         System.out.println();
+    }
+
+    public static Anagrafico getArc() {
+        return arc;
     }
 
 }
